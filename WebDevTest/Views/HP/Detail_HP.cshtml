@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WebDevTest.DANGKY>
+    @using WebDevTest.Helper;
+
+@{
+    ViewBag.Title = "Danh sách điểm thi";
+    Helper helper = new Helper();
+}
+
+<h2>Danh sách điểm thi</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Sinh Vien
+        </th>
+        <th>
+            Ngày đăng ký
+        </th>
+        <th>
+            Điểm thi
+        </th>
+        <th>
+            Điểm thành phần
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    string ten = helper.GetTenSV(item.MaSV);
+    DateTime nDK = (DateTime)item.NgayDK;
+    <tr>
+
+        <td>
+            @ten
+        </td>
+        <td>
+            @nDK.ToShortDateString()
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiemThi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiemTP)
+        </td>
+    </tr>
+}
+
+</table>

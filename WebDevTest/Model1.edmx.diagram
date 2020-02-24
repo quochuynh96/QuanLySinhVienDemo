@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0502d745ac58416f84a95e7e0e398aa9" Name="Diagram1">
+        <EntityTypeShape EntityType="QuanLySinhVienModel.HOCPHAN" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLySinhVienModel.SINHVIEN" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLySinhVienModel.sysdiagram" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLySinhVienModel.DANGKY" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="QuanLySinhVienModel.FK_DANGKY_HOCPHAN" />
+        <AssociationConnector Association="QuanLySinhVienModel.FK_DANGKY_SINHVIEN" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

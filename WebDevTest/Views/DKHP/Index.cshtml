@@ -1,0 +1,80 @@
+﻿@model WebDevTest.DANGKY
+    @using WebDevTest.Helper
+
+@{
+    ViewBag.Title = "Đăng ký";
+    HOCPHAN hp = (HOCPHAN)ViewBag.HocPhan;
+    Helper helper = new Helper();
+    List<SINHVIEN> listSV = helper.getListSV();
+    List<HOCPHAN> listHP = helper.getListHP();
+}
+
+<h2>Đăng ký</h2>
+
+
+@using (Html.BeginForm("AddNewDK","DKHP",FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+           <b class="control-label col-md-2">Học phần</b>
+            <div class="col-md-10">
+                <select id="MaHP" name="MaHP" class="form-control">
+                    @foreach (var i in listHP)
+                    {
+                        <option value="@i.MaHP">@i.TenHP</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Sinh viên</b>
+            <div class="col-md-10">
+                <select id="MaSV" name="MaSV" class="form-control">
+                    @foreach (var i in listSV)
+                    {
+                        <option value="@i.MaSV">@i.Ho @i.Ten</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Ngày đăng ký</b>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NgayDK, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NgayDK, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Điểm thi</b>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DiemThi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DiemThi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Điểm thành phẩn</b>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DiemTP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DiemTP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Đăng ký" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

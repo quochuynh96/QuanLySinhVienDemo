@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WebDevTest.HOCPHAN>
+
+@{
+    ViewBag.Title = "Trang chủ";
+}
+
+<h2>Danh sách học phần :</h2>
+
+<p>
+    @Html.ActionLink("Thêm học phần", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+           Tên học phần
+        </th>
+        <th>
+            Số tín chỉ
+        </th>
+        <th>
+            Hệ số điểm thi
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <a href="@Url.Action("Index","HP",new { MaHP = item.MaHP })">
+                @Html.DisplayFor(modelItem => item.TenHP)
+            </a>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoTC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HSDiemThi)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Edit", new { MaHP = item.MaHP }) |
+            @Html.ActionLink("Xóa", "Delete", new { MaHP = item.MaHP }) |
+            @Html.ActionLink("Đăng ký sinh viên", "DKHP", new { MaHP = item.MaHP })
+        </td>
+    </tr>
+}
+
+</table>

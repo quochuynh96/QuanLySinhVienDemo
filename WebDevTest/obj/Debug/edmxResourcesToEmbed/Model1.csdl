@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLySinhVienModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="HOCPHAN">
+    <Key>
+      <PropertyRef Name="MaHP" />
+    </Key>
+    <Property Name="MaHP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenHP" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="SoTC" Type="Int32" />
+    <Property Name="HSDiemThi" Type="Double" />
+    <NavigationProperty Name="DANGKies" Relationship="QuanLySinhVienModel.FK_DANGKY_HOCPHAN" FromRole="HOCPHAN" ToRole="DANGKY" />
+  </EntityType>
+  <EntityType Name="SINHVIEN">
+    <Key>
+      <PropertyRef Name="MaSV" />
+    </Key>
+    <Property Name="MaSV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ho" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Ten" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="QueQuan" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="DANGKies" Relationship="QuanLySinhVienModel.FK_DANGKY_SINHVIEN" FromRole="SINHVIEN" ToRole="DANGKY" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityContainer Name="QuanLySinhVienEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="HOCPHANs" EntityType="Self.HOCPHAN" />
+    <EntitySet Name="SINHVIENs" EntityType="Self.SINHVIEN" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="DANGKies" EntityType="QuanLySinhVienModel.DANGKY" />
+    <AssociationSet Name="FK_DANGKY_HOCPHAN" Association="QuanLySinhVienModel.FK_DANGKY_HOCPHAN">
+      <End Role="HOCPHAN" EntitySet="HOCPHANs" />
+      <End Role="DANGKY" EntitySet="DANGKies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DANGKY_SINHVIEN" Association="QuanLySinhVienModel.FK_DANGKY_SINHVIEN">
+      <End Role="SINHVIEN" EntitySet="SINHVIENs" />
+      <End Role="DANGKY" EntitySet="DANGKies" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="DANGKY">
+    <Key>
+      <PropertyRef Name="MaHP" />
+      <PropertyRef Name="MaSV" />
+    </Key>
+    <Property Name="MaHP" Type="Int32" Nullable="false" />
+    <Property Name="MaSV" Type="Int32" Nullable="false" />
+    <Property Name="NgayDK" Type="DateTime" Precision="0" />
+    <Property Name="DiemThi" Type="Double" />
+    <Property Name="DiemTP" Type="Double" />
+    <NavigationProperty Name="HOCPHAN" Relationship="QuanLySinhVienModel.FK_DANGKY_HOCPHAN" FromRole="DANGKY" ToRole="HOCPHAN" />
+    <NavigationProperty Name="SINHVIEN" Relationship="QuanLySinhVienModel.FK_DANGKY_SINHVIEN" FromRole="DANGKY" ToRole="SINHVIEN" />
+  </EntityType>
+  <Association Name="FK_DANGKY_HOCPHAN">
+    <End Type="QuanLySinhVienModel.HOCPHAN" Role="HOCPHAN" Multiplicity="1" />
+    <End Type="QuanLySinhVienModel.DANGKY" Role="DANGKY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOCPHAN">
+        <PropertyRef Name="MaHP" />
+      </Principal>
+      <Dependent Role="DANGKY">
+        <PropertyRef Name="MaHP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DANGKY_SINHVIEN">
+    <End Type="QuanLySinhVienModel.SINHVIEN" Role="SINHVIEN" Multiplicity="1" />
+    <End Type="QuanLySinhVienModel.DANGKY" Role="DANGKY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SINHVIEN">
+        <PropertyRef Name="MaSV" />
+      </Principal>
+      <Dependent Role="DANGKY">
+        <PropertyRef Name="MaSV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

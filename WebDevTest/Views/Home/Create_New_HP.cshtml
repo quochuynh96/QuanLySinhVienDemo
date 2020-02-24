@@ -1,0 +1,57 @@
+﻿@model WebDevTest.HOCPHAN
+
+@{
+    ViewBag.Title = "Thêm HP mới";
+}
+
+<h2>Thêm mới học phần :</h2>
+
+
+@using (Html.BeginForm("AddNewHP","Home",FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>HOCPHAN</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <b class = "control-label col-md-2">Tên HP</b>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenHP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenHP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Số TC</b>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoTC, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SoTC, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Hệ số điểm thi</b>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HSDiemThi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HSDiemThi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLySinhVienModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DANGKY">
+    <Key>
+      <PropertyRef Name="MaHP" />
+      <PropertyRef Name="MaSV" />
+    </Key>
+    <Property Name="MaHP" Type="int" Nullable="false" />
+    <Property Name="MaSV" Type="int" Nullable="false" />
+    <Property Name="NgayDK" Type="date" />
+    <Property Name="DiemThi" Type="float" />
+    <Property Name="DiemTP" Type="float" />
+  </EntityType>
+  <EntityType Name="HOCPHAN">
+    <Key>
+      <PropertyRef Name="MaHP" />
+    </Key>
+    <Property Name="MaHP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenHP" Type="nvarchar" MaxLength="255" />
+    <Property Name="SoTC" Type="int" />
+    <Property Name="HSDiemThi" Type="float" />
+  </EntityType>
+  <EntityType Name="SINHVIEN">
+    <Key>
+      <PropertyRef Name="MaSV" />
+    </Key>
+    <Property Name="MaSV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ho" Type="nvarchar" MaxLength="20" />
+    <Property Name="Ten" Type="nvarchar" MaxLength="20" />
+    <Property Name="QueQuan" Type="nvarchar" MaxLength="255" />
+    <Property Name="NgaySinh" Type="date" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_DANGKY_HOCPHAN">
+    <End Role="HOCPHAN" Type="Self.HOCPHAN" Multiplicity="1" />
+    <End Role="DANGKY" Type="Self.DANGKY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOCPHAN">
+        <PropertyRef Name="MaHP" />
+      </Principal>
+      <Dependent Role="DANGKY">
+        <PropertyRef Name="MaHP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DANGKY_SINHVIEN">
+    <End Role="SINHVIEN" Type="Self.SINHVIEN" Multiplicity="1" />
+    <End Role="DANGKY" Type="Self.DANGKY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SINHVIEN">
+        <PropertyRef Name="MaSV" />
+      </Principal>
+      <Dependent Role="DANGKY">
+        <PropertyRef Name="MaSV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanLySinhVienModelStoreContainer">
+    <EntitySet Name="DANGKY" EntityType="Self.DANGKY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HOCPHAN" EntityType="Self.HOCPHAN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SINHVIEN" EntityType="Self.SINHVIEN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_DANGKY_HOCPHAN" Association="Self.FK_DANGKY_HOCPHAN">
+      <End Role="HOCPHAN" EntitySet="HOCPHAN" />
+      <End Role="DANGKY" EntitySet="DANGKY" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DANGKY_SINHVIEN" Association="Self.FK_DANGKY_SINHVIEN">
+      <End Role="SINHVIEN" EntitySet="SINHVIEN" />
+      <End Role="DANGKY" EntitySet="DANGKY" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
